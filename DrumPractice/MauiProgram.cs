@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace DrumPractice
 {
@@ -14,6 +15,7 @@ namespace DrumPractice
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
+            builder.Services.AddMudServices();
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
