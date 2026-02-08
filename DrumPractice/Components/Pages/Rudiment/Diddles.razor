@@ -1,182 +1,59 @@
 ﻿@page "/Rudiment/Diddles"
+@using DrumPractice.Models
+@using DrumPractice.Services
 @implements IDisposable
-
-@* {
-    id: "16",
-    name: "Single Paradiddle",
-    type: types[1],
-  },
-  {
-    id: "17",
-    name: "Double Paradiddle",
-    type: types[1],
-  },
-  {
-    id: "18",
-    name: "Triple Paradiddle",
-    type: types[1],
-  },
-  {
-    id: "19",
-    name: "Single Paradiddle-Diddle",
-    type: types[1],
-  }, *@
+@inject ExerciseService exerciseService
 
 <MudContainer Class="mt-16">
     <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Let's get practicing!</MudText>
     <MudText Typo="Typo.h5" Align="Align.Center">"You only get better by playing."</MudText>
     <MudGrid Class="mt-8">
         <MudItem xs="12" sm="6" md="3">
-            <MudCard>
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                            <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                        </MudAvatar>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Single Paradiddle</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-16.png" Style="background-size: contain;" />
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">150 BPM</MudText>
-                </MudCardContent>
+            @if (Exercises == null)
+            {
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" Class="mx-auto" />
+            }
+            else{
+                @foreach (var item in Exercises)
+                {
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderAvatar>
+                                <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
+                                    <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
+                                </MudAvatar>
+                            </CardHeaderAvatar>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.body1">@item.Name</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-16.png" Style="background-size: contain;" />
+                        <MudCardContent>
+                            <MudText Typo="Typo.body2">@item.Description</MudText>
+                        </MudCardContent>
 
-                <MudCardActions>
-                        <MudStack Spacing="2">
-                            <MudCollapse Expanded="_expanded">
-                                <MudCardActions>
-                                    <MudToggleIconButton @bind-Toggled="TimerRunning"
-                                                         Icon="@Icons.Material.Filled.PlayArrow"
-                                                         Color="@Color.Error"
-                                                         ToggledIcon="@Icons.Material.Filled.Pause"
-                                                         ToggledColor="@Color.Error"
-                                                         title="@(TimerRunning ? "Pause" : "Start")" />
-                                    <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
-                                    <MudIconButton Icon="@Icons.Material.Filled.Refresh"
-                                                   Color="@Color.Error"
-                                                   OnClick="ResetTimer"
-                                                   title="Reset" />
-                                </MudCardActions>
-                            </MudCollapse>
-                        </MudStack>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard>
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                            <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                        </MudAvatar>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Double Paradiddle</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-17.png" Style="background-size: contain;" />
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">150 BPM</MudText>
-                </MudCardContent>
-
-                <MudCardActions>
-                    <MudStack Spacing="2">
-                        <MudCollapse Expanded="_expanded">
-                            <MudCardActions>
-                                <MudToggleIconButton @bind-Toggled="TimerRunning"
-                                                     Icon="@Icons.Material.Filled.PlayArrow"
-                                                     Color="@Color.Error"
-                                                     ToggledIcon="@Icons.Material.Filled.Pause"
-                                                     ToggledColor="@Color.Error"
-                                                     title="@(TimerRunning ? "Pause" : "Start")" />
-                                <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
-                                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
-                                               Color="@Color.Error"
-                                               OnClick="ResetTimer"
-                                               title="Reset" />
-                            </MudCardActions>
-                        </MudCollapse>
-                    </MudStack>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard>
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                            <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                        </MudAvatar>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Triple Paradiddle</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-18.png" Style="background-size: contain;" />
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">150 BPM</MudText>
-                </MudCardContent>
-
-                <MudCardActions>
-                    <MudStack Spacing="2">
-                        <MudCollapse Expanded="_expanded">
-                            <MudCardActions>
-                                <MudToggleIconButton @bind-Toggled="TimerRunning"
-                                                     Icon="@Icons.Material.Filled.PlayArrow"
-                                                     Color="@Color.Error"
-                                                     ToggledIcon="@Icons.Material.Filled.Pause"
-                                                     ToggledColor="@Color.Error"
-                                                     title="@(TimerRunning ? "Pause" : "Start")" />
-                                <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
-                                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
-                                               Color="@Color.Error"
-                                               OnClick="ResetTimer"
-                                               title="Reset" />
-                            </MudCardActions>
-                        </MudCollapse>
-                    </MudStack>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard>
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                            <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                        </MudAvatar>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Single Paradiddle-Diddle</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-19.png" Style="background-size: contain;" />
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">150 BPM</MudText>
-                </MudCardContent>
-
-                <MudCardActions>
-                    <MudStack Spacing="2">
-                        <MudCollapse Expanded="_expanded">
-                            <MudCardActions>
-                                <MudToggleIconButton @bind-Toggled="TimerRunning"
-                                                     Icon="@Icons.Material.Filled.PlayArrow"
-                                                     Color="@Color.Error"
-                                                     ToggledIcon="@Icons.Material.Filled.Pause"
-                                                     ToggledColor="@Color.Error"
-                                                     title="@(TimerRunning ? "Pause" : "Start")" />
-                                <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
-                                <MudIconButton Icon="@Icons.Material.Filled.Refresh"
-                                               Color="@Color.Error"
-                                               OnClick="ResetTimer"
-                                               title="Reset" />
-                            </MudCardActions>
-                        </MudCollapse>
-                    </MudStack>
-                </MudCardActions>
-            </MudCard>
+                        <MudCardActions>
+                            <MudStack Spacing="2">
+                                <MudCollapse Expanded="_expanded">
+                                    <MudCardActions>
+                                        <MudToggleIconButton @bind-Toggled="TimerRunning"
+                                                             Icon="@Icons.Material.Filled.PlayArrow"
+                                                             Color="@Color.Error"
+                                                             ToggledIcon="@Icons.Material.Filled.Pause"
+                                                             ToggledColor="@Color.Error"
+                                                             title="@(TimerRunning ? "Pause" : "Start")" />
+                                        <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
+                                        <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                                                       Color="@Color.Error"
+                                                       OnClick="ResetTimer"
+                                                       title="Reset" />
+                                    </MudCardActions>
+                                </MudCollapse>
+                            </MudStack>
+                        </MudCardActions>
+                    </MudCard>
+                }
+            }
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -188,15 +65,16 @@
 
     bool _expanded = true;
 
-    private bool _checkMark = true;
-
     private void OnExpandCollapseClick()
     {
         _expanded = !_expanded;
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+
+        Exercises = await exerciseService.GetExercisesAsync();
+
         timer = new System.Threading.Timer(async _ =>
         {
             if (TimerRunning)
@@ -224,4 +102,6 @@
     {
         timer?.Dispose();
     }
+
+    public List<Exercise>? Exercises {get; set; }
 }
