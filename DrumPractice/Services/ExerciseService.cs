@@ -12,6 +12,10 @@ public class ExerciseService
         _dataContext = dataContext;
     }
 
+    public async Task<Exercise?> GetExerciseByIdAsync(int id)
+    {
+        return await _dataContext.Exercises.FindAsync(id);
+    }
     public async Task<List<Exercise>> GetExercisesAsync()
     {
         return await _dataContext.Exercises.ToListAsync();

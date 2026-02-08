@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="DrumPractice/DrumPractice.csproj" />
+  <Project Path="DrumPractice/DrumPractice.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>
