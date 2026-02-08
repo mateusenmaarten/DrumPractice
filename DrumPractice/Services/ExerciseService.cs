@@ -18,6 +18,6 @@ public class ExerciseService
     }
     public async Task<List<Exercise>> GetExercisesAsync()
     {
-        return await _dataContext.Exercises.ToListAsync();
+        return await _dataContext.Exercises.Include(e => e.Tags).ToListAsync();
     }
 }

@@ -20,15 +20,24 @@
                                 <CardHeaderAvatar>
                                     <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
                                         <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
+                    
                                     </MudAvatar>
                                 </CardHeaderAvatar>
+
                                 <CardHeaderContent>
                                     <MudText Typo="Typo.body1">@item.Name</MudText>
+ 
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-16.png" Style="background-size: contain;" />
                             <MudCardContent>
-                                <MudText Typo="Typo.body2">@item.Description</MudText>
+                            @if (item.Tags != null && item.Tags.Any())
+                            {
+                                @foreach (var tag in item.Tags)
+                                {
+                                    <MudChip T="string" Color="Color.Secondary">@tag.Name</MudChip>
+                                }
+                            }
                             </MudCardContent>
                             <MudCardActions>
                             <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.PlayForWork" Color="Color.Primary" Href="@($"/PracticeDetail/{item.Id}")">
