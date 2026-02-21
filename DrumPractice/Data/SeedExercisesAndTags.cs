@@ -61,10 +61,10 @@ namespace DrumPractice.Data
         // Tag names that match the type strings but without underscore and plural.
         private static readonly Dictionary<string, string> TagNames = new()
         {
-            { Types[0], "Roll Rudiment"  },
-            { Types[1], "Diddle Rudiment"},
-            { Types[2], "Flam Rudiment"  },
-            { Types[3], "Drag Rudiment"  }
+            { Types[0], "Roll Rudiments"  },
+            { Types[1], "Diddle Rudiments"},
+            { Types[2], "Flam Rudiments"  },
+            { Types[3], "Drag Rudiments"  }
         };
 
         public static void Seed(DataContext dbContext)

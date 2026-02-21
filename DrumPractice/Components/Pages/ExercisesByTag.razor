@@ -1,10 +1,10 @@
-﻿@page "/Rudiment/Diddles"
+﻿@page "/Rudiment/ExercisesByTag"
 @using DrumPractice.Models
 @using DrumPractice.Services
 @inject ExerciseService exerciseService
 
 <MudContainer Class="mt-16">
-    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Diddle rudiments</MudText>
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">@tag</MudText>
     <MudGrid Class="mt-8">
             @if (Exercises == null)
             {
@@ -28,7 +28,7 @@
  
                                 </CardHeaderContent>
                             </MudCardHeader>
-                            <MudCardMedia Image="/images/40_International_Drum_Rudiments/Diddle_Rudiments/rudiment-16.png" Style="background-size: contain;" />
+                            <MudCardMedia Image="@item.ImageUrl" Style="background-size: cover;" Height="150" />
                             <MudCardContent>
                             @if (item.Tags != null && item.Tags.Any())
                             {
@@ -51,10 +51,12 @@
 </MudContainer>
 
 @code {
+    [Parameter]
+    public required string tag { get; set; }
     public List<Exercise>? Exercises {get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Exercises = await exerciseService.GetExercisesAsync();
+        Exercises = await exerciseService.GetExercisesByTagAsync(tag);
     }
 }

@@ -6,5 +6,16 @@
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (BlazorWebViewExtensions.CanGoBack(blazorWebView))
+            {
+                BlazorWebViewExtensions.GoBack(blazorWebView);
+                return true;
+            }
+
+            return base.OnBackButtonPressed();
+        }
     }
 }
