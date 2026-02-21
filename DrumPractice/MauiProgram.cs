@@ -1,5 +1,4 @@
 ﻿using DrumPractice.Data;
-using DrumPractice.Models;
 using DrumPractice.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -40,25 +39,7 @@ public static class MauiProgram
             var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
             dbContext.Database.EnsureCreated();
 
-            if (!dbContext.Exercises.Any())
-            {
-                dbContext.Exercises.AddRange(
-                    new Exercise { Name = "Single Stroke Roll", Description = "Alternate sticking: RLRL..." },
-                    new Exercise { Name = "Double Stroke Roll", Description = "Two strokes per hand: RRLL..." },
-                    new Exercise { Name = "Paradiddle", Description = "Combination of single and double strokes: RLRR LRLL..." }
-                );
-                dbContext.SaveChanges();
-            }
-
-            if (!dbContext.Tags.Any())
-            {
-                dbContext.Tags.AddRange(
-                    new Tag { Name = "Beginner" },
-                    new Tag { Name = "Intermediate" },
-                    new Tag { Name = "Advanced" }
-                );
-                dbContext.SaveChanges();
-            }
+            SeedExercisesAndTags.Seed(dbContext);
         }
 
         return app;

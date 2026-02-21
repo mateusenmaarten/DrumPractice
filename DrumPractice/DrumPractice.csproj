@@ -60,83 +60,81 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\.DS_Store" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-31.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-32.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-33.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-34.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-35.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-36.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-37.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-38.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-39.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-40.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\.DS_Store" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-20.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-21.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-22.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-23.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-24.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-25.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-26.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-27.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-28.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-29.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-30.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-01.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-02.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-03.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-04.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-05.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-06.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-07.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-08.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-09.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-10.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-11.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-12.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-13.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-14.png" />
-      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-15.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-31.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-32.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-33.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-34.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-35.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-36.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-37.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-38.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-39.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-40.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-20.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-21.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-22.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-23.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-24.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-25.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-26.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-27.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-28.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-29.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-30.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-01.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-02.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-03.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-04.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-05.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-06.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-07.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-08.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-09.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-10.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-11.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-12.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-13.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-14.png" />
+      <MauiAsset Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-15.png" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-31.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-32.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-33.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-34.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-35.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-36.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-37.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-38.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-39.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Drag_Rudiments\rudiment-40.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-20.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-21.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-22.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-23.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-24.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-25.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-26.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-27.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-28.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-29.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Flam_Rudiments\rudiment-30.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-01.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-02.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-03.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-04.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-05.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-06.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-07.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-08.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-09.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-10.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-11.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-12.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-13.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-14.png" />
-      <None Include="wwwroot\images\40_International_Drum_Rudiments\Roll_Rudiments\rudiment-15.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-31.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-32.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-33.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-34.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-35.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-36.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-37.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-38.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-39.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-40.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-20.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-21.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-22.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-23.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-24.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-25.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-26.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-27.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-28.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-29.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-30.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-01.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-02.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-03.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-04.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-05.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-06.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-07.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-08.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-09.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-10.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-11.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-12.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-13.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-14.png" />
+      <None Include="wwwroot\images\40_International_Drum_Rudiments\rudiment-15.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -148,16 +146,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="wwwroot\images\40_International_Drum_Rudiments\Diddle_Rudiments\rudiment-16.png">
+      <Content Update="wwwroot\images\40_International_Drum_Rudiments\rudiment-16.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Update="wwwroot\images\40_International_Drum_Rudiments\Diddle_Rudiments\rudiment-17.png">
+      <Content Update="wwwroot\images\40_International_Drum_Rudiments\rudiment-17.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Update="wwwroot\images\40_International_Drum_Rudiments\Diddle_Rudiments\rudiment-18.png">
+      <Content Update="wwwroot\images\40_International_Drum_Rudiments\rudiment-18.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Update="wwwroot\images\40_International_Drum_Rudiments\Diddle_Rudiments\rudiment-19.png">
+      <Content Update="wwwroot\images\40_International_Drum_Rudiments\rudiment-19.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
