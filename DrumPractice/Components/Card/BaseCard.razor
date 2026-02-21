@@ -1,0 +1,39 @@
+@using DrumPractice.Models
+<MudCard Elevation="10" Class="rounded-lg pb-4" Outlined="true">
+    <MudCardHeader @onclick="() => _expand = !_expand" >
+        <CardHeaderAvatar>
+            <MudAvatar Color="@Color" Variant="Variant.Outlined">
+                <MudIcon Icon="@Icon" Size="Size.Medium" />
+            </MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h5">@Title</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCollapse Expanded="_expand">
+        <MudCardContent>
+            <MudList T="string">
+                @foreach (var item in Items ?? new List<CardItem>())
+                {
+                    <MudListItem Icon="@Icons.Material.Filled.ArrowRight" IconColor="Color.Primary" Text="@item.Name" Href="@item.Href"/>
+                }
+            </MudList>
+        </MudCardContent>
+    </MudCollapse>
+</MudCard>
+
+@code{
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public required Color Color { get; set; }
+    
+    [Parameter]
+    public required string Icon { get; set; }
+
+    [Parameter]
+    public List<CardItem>? Items { get; set; }
+
+    bool _expand = false;
+}

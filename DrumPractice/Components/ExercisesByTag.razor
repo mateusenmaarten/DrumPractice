@@ -1,4 +1,4 @@
-﻿@page "/Rudiment/ExercisesByTag"
+﻿@page "/Rudiment/ExercisesByTag/{tag}"
 @using DrumPractice.Models
 @using DrumPractice.Services
 @inject ExerciseService exerciseService
@@ -19,13 +19,10 @@
                                 <CardHeaderAvatar>
                                     <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
                                         <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                    
                                     </MudAvatar>
                                 </CardHeaderAvatar>
-
                                 <CardHeaderContent>
                                     <MudText Typo="Typo.body1">@item.Name</MudText>
- 
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardMedia Image="@item.ImageUrl" Style="background-size: cover;" Height="150" />
@@ -54,6 +51,12 @@
     [Parameter]
     public required string tag { get; set; }
     public List<Exercise>? Exercises {get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Decode in case of URL encoding
+        tag = Uri.UnescapeDataString(tag);
+    }
 
     protected override async Task OnInitializedAsync()
     {
