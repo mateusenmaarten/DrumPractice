@@ -3,6 +3,7 @@
 @using DrumPractice.Services
 @implements IDisposable
 @inject ExerciseService exerciseService
+@inject PracticeLogService practiceLogService
 
 @if (Exercise == null)
 {
@@ -143,7 +144,7 @@ else
                    FullWidth="true"
                    Disabled="@(!CanLog)"
                    StartIcon="@Icons.Material.Filled.LibraryAdd"
-                   OnClick="LogPractice">
+                   OnClick="LogPracticeAsync">
             Log Practice
         </MudButton>
 
@@ -193,9 +194,21 @@ else
     #region Log
     private bool CanLog => stopwatchElapsedSeconds > 0 || countdownElapsedSeconds > 0;
 
-    private void LogPractice()
+    private async Task LogPracticeAsync()
     {
-        // TODO: save Exercise.Name, bpm, stopwatchElapsedSeconds, countdownElapsedSeconds
+        var log = new PracticeLog
+        {
+            ExerciseId = ExerciseId,
+            Date = DateTime.Now,
+            SecondsPracticed = (countdownElapsedSeconds > 0) ? countdownElapsedSeconds : stopwatchElapsedSeconds,
+            BpmUsed = bpm,
+            Rating = 3 // TODO -> add a rating system (1 - 5 stars?)
+        };
+
+        await practiceLogService.AddPracticeLogAsync(log);
+        // Reset timers after logging
+        ResetStopwatch();
+        ResetCountdown();
     }
     #endregion
 

@@ -1,0 +1,54 @@
+﻿@page "/latest-practice"
+@using System.Net.Http.Json
+@using DrumPractice.Models
+@using DrumPractice.Services
+@inject PracticeLogService practiceLogService
+
+<MudDataGrid T="PracticeLog" Items="@practiceLogs" SortMode="SortMode.Multiple" Class="mt-10">
+    <Columns>
+        <TemplateColumn Title="Date" Sortable="true" SortBy="x => x.Date">
+            <CellTemplate>
+                <MudText>@context.Item.Date!.Value.ToString("dd/MM/yyyy")</MudText>
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Exercise!.Name" Title="Exercise" Sortable="true" />
+        <PropertyColumn Property="x => x.BpmUsed" Title="BPM" Sortable="true" />
+        <TemplateColumn Title="Time Practiced" Sortable="true" SortBy="x => x.SecondsPracticed">
+            <CellTemplate>
+                <MudText>@FormatDuration(context.Item.SecondsPracticed)</MudText>
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn Title="Rating" Sortable="true" SortBy="x => x.Rating">
+            <CellTemplate>
+                <MudRating Size="Size.Small" SelectedValue="@(context.Item.Rating ?? 0)" ReadOnly="true" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="PracticeLog" PageSizeOptions="new int[] { 5, 10, 25, 50 }" />
+    </PagerContent>
+</MudDataGrid>
+
+@code {
+    
+    public required IEnumerable<PracticeLog> practiceLogs;
+
+
+    protected async override void OnInitialized()
+    {
+        practiceLogs = await practiceLogService.GetPracticeLogsAsync();
+    }
+
+    private string FormatDuration(int? totalSeconds)
+    {
+        if (totalSeconds == null || totalSeconds == 0) return "—";
+
+        int h = totalSeconds.Value / 3600;
+        int m = (totalSeconds.Value % 3600) / 60;
+        int s = totalSeconds.Value % 60;
+
+        if (h > 0) return $"{h}h {m}m {s}s";
+        if (m > 0) return $"{m}m {s}s";
+        return $"{s}s";
+    }
+}
