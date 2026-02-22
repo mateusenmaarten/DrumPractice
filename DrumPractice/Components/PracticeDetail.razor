@@ -6,78 +6,204 @@
 
 @if (Exercise == null)
 {
-    <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" />
+    <MudProgressCircular Color="Color.Error" Indeterminate="true" Size="Size.Large" />
 }
 else
 {
-        <MudCard Class="mt-10">
+    <!-- Image -->
+    <MudCardMedia Image="@Exercise.ImageUrl" Style="background-size: contain;" Height="200" Class="w-100 pt-5" />
+    <MudStack Spacing="2">
+
+        <!-- Hero Card: Title -->
+        <MudCard Elevation="0">
             <MudCardHeader>
                 <CardHeaderAvatar>
                     <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                        <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
+                        <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" />
                     </MudAvatar>
                 </CardHeaderAvatar>
                 <CardHeaderContent>
-                    <MudText Typo="Typo.body1">@Exercise.Name</MudText>
+                    <MudText Typo="Typo.h6">@Exercise.Name</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
-            <MudCardMedia Image="@Exercise.ImageUrl" Style="background-size: contain;" />
-            <MudCardContent>
-                <MudSlider @bind-Value="bpm" Min="40" Max="218" Color="Color.Primary">
-                    BPM: @bpm
-                </MudSlider>
-            </MudCardContent>
-            <MudCardActions>
-                <MudStack Spacing="2">
-                    <MudCollapse Expanded="_expanded">
-                        <MudCardActions>
-                            <MudToggleIconButton @bind-Toggled="TimerRunning"
-                                                    Icon="@Icons.Material.Filled.PlayArrow"
-                                                    Color="@Color.Error"
-                                                    ToggledIcon="@Icons.Material.Filled.Pause"
-                                                    ToggledColor="@Color.Error"
-                                                    title="@(TimerRunning ? "Pause" : "Start")" />
-                            <MudText Typo="Typo.body1">@FormatTime(ElapsedSeconds)</MudText>
-                            <MudIconButton Icon="@Icons.Material.Filled.Refresh"
-                                            Color="@Color.Error"
-                                            OnClick="ResetTimer"
-                                            title="Reset" />
-                        </MudCardActions>
-                    </MudCollapse>
-                </MudStack>
-            </MudCardActions>
         </MudCard>
+
+        <!-- BPM Card -->
+        <MudCard Elevation="2">
+            <MudCardContent>
+                <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="mt-2">
+
+                    <!-- Decrement -->
+                    <MudStack Spacing="1" AlignItems="AlignItems.Center">
+                        <MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small"
+                                   OnClick="() => ChangeBpm(-10)">−10</MudButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Remove" Color="Color.Error"
+                                       Variant="Variant.Outlined" OnClick="() => ChangeBpm(-1)" />
+                    </MudStack>
+
+                    <!-- BPM Display -->
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudText Typo="Typo.h2" Color="Color.Error" Style="font-weight:800;letter-spacing:-2px">@bpm</MudText>
+                        <MudText Typo="Typo.overline" Color="Color.Secondary">BPM</MudText>
+                    </MudStack>
+
+                    <!-- Increment -->
+                    <MudStack Spacing="1" AlignItems="AlignItems.Center">
+                        <MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small"
+                                   OnClick="() => ChangeBpm(10)">+10</MudButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Error"
+                                       Variant="Variant.Outlined" OnClick="() => ChangeBpm(1)" />
+                    </MudStack>
+
+                </MudStack>
+                <MudSlider @bind-Value="bpm" Min="40" Max="220" Color="Color.Error" Class="mt-2" />
+            </MudCardContent>
+        </MudCard>
+
+        <!-- Timers: side by side -->
+        <MudGrid Spacing="3">
+
+            <!-- Stopwatch -->
+            <MudItem xs="6">
+                <MudCard Elevation="2" Style="height:100%">
+                    <MudCardContent>
+                        <MudText Typo="Typo.overline" Color="Color.Secondary">Stopwatch</MudText>
+                        <MudText Typo="Typo.h4" Style="font-variant-numeric:tabular-nums;font-weight:700" Class="my-2">
+                            @FormatTime(stopwatchElapsedSeconds)
+                        </MudText>
+                        <MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center">
+                            <MudIconButton Icon="@(stopwatchRunning? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)"
+                                           Color="Color.Error"
+                                           Variant="Variant.Filled"
+                                           OnClick="ToggleStopwatch" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                                           Color="Color.Default"
+                                           Variant="Variant.Outlined"
+                                           OnClick="ResetStopwatch" />
+                        </MudStack>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+
+            <!-- Countdown -->
+            <MudItem xs="6">
+                <MudCard Elevation="2" Style="height:100%">
+                    <MudCardContent>
+                        <MudText Typo="Typo.overline" Color="Color.Secondary">Countdown</MudText>
+                        <MudText Typo="Typo.h4"
+                                 Color="@(RemainingSeconds == 0 && countdownElapsedSeconds > 0 ? Color.Success : Color.Error)"
+                                 Style="font-variant-numeric:tabular-nums;font-weight:700" Class="my-2">
+                            @(RemainingSeconds == 0 && countdownElapsedSeconds > 0 ? "Done!" : FormatTime(RemainingSeconds))
+                        </MudText>
+                        <MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center">
+                            <MudIconButton Icon="@(countdownRunning? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)"
+                                           Color="Color.Error"
+                                           Variant="Variant.Filled"
+                                           OnClick="ToggleCountdown"
+                                           Disabled="@(RemainingSeconds == 0 && countdownElapsedSeconds > 0)" />
+                            <MudIconButton Icon="@Icons.Material.Filled.Refresh"
+                                           Color="Color.Default"
+                                           Variant="Variant.Outlined"
+                                           OnClick="ResetCountdown" />
+                        </MudStack>
+                        <MudProgressLinear Color="@(RemainingSeconds == 0 && countdownElapsedSeconds > 0 ? Color.Success : Color.Error)"
+                                           Value="@GetCountdownProgress()"
+                                           Max="100"
+                                           Rounded="true"
+                                           Size="Size.Small"
+                                           Class="mt-3" />
+                        <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-1">
+                            @FormatTime(RemainingSeconds) remaining
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+
+        </MudGrid>
+
+        <!-- Countdown Duration Picker -->
+        <MudCard Elevation="2">
+            <MudCardContent>
+                <MudText Typo="Typo.overline" Color="Color.Secondary" GutterBottom="true">Set Duration</MudText>
+                <MudChipSet T="int" @bind-SelectedValue="targetMinutes" SelectionMode="SelectionMode.SingleSelection">
+                    @foreach (var min in new[] { 5, 10, 15, 20, 30, 45, 60 })
+                    {
+                        <MudChip T="int" Value="min"
+                                 Color="@(targetMinutes == min ? Color.Error : Color.Default)"
+                                 Variant="@(targetMinutes == min ? Variant.Filled : Variant.Outlined)"
+                                 Disabled="@countdownRunning"
+                                 OnClick="() => SetDuration(min)">
+                            @min min
+                        </MudChip>
+                    }
+                </MudChipSet>
+            </MudCardContent>
+        </MudCard>
+
+        <!-- Log Practice -->
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   Size="Size.Large"
+                   FullWidth="true"
+                   Disabled="@(!CanLog)"
+                   StartIcon="@Icons.Material.Filled.LibraryAdd"
+                   OnClick="LogPractice">
+            Log Practice
+        </MudButton>
+
+    </MudStack>
 }
 
 @code {
-    // The exercise ID is passed as a route parameter
     [Parameter]
     public int ExerciseId { get; set; }
 
     private Exercise? Exercise { get; set; }
-    private bool TimerRunning { get; set; }
-    private int ElapsedSeconds { get; set; }
     private System.Threading.Timer? timer;
-    bool _expanded = true;
 
-    //BPM
+    #region BPM
     private int bpm = 120;
 
-    protected override async Task OnInitializedAsync()
-    {
-        // Load the exercise from the database
-        Exercise = await exerciseService.GetExerciseByIdAsync(ExerciseId);
+    private void ChangeBpm(int delta) => bpm = Math.Clamp(bpm + delta, 40, 220);
+    #endregion
 
-        timer = new System.Threading.Timer(async _ =>
-        {
-            if (TimerRunning)
-            {
-                ElapsedSeconds++;
-                await InvokeAsync(StateHasChanged);
-            }
-        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+    #region Stopwatch
+    private int stopwatchElapsedSeconds;
+    private bool stopwatchRunning;
+
+    private void ToggleStopwatch() => stopwatchRunning = !stopwatchRunning;
+    private void ResetStopwatch() { stopwatchElapsedSeconds = 0; stopwatchRunning = false; }
+    #endregion
+
+    #region Countdown
+    private int targetMinutes = 10;
+    private int countdownElapsedSeconds;
+    private bool countdownRunning;
+
+    private int TargetSeconds => targetMinutes * 60;
+    private int RemainingSeconds => Math.Max(0, TargetSeconds - countdownElapsedSeconds);
+
+    private double GetCountdownProgress()
+    {
+        if (TargetSeconds == 0) return 0;
+        return (double)RemainingSeconds / TargetSeconds * 100;
     }
 
+    private void ToggleCountdown() => countdownRunning = !countdownRunning;
+    private void ResetCountdown() { countdownElapsedSeconds = 0; countdownRunning = false; }
+    private void SetDuration(int minutes) { targetMinutes = minutes; countdownElapsedSeconds = 0; countdownRunning = false; }
+    #endregion
+
+    #region Log
+    private bool CanLog => stopwatchElapsedSeconds > 0 || countdownElapsedSeconds > 0;
+
+    private void LogPractice()
+    {
+        // TODO: save Exercise.Name, bpm, stopwatchElapsedSeconds, countdownElapsedSeconds
+    }
+    #endregion
+
+    #region Shared
     private string FormatTime(int totalSeconds)
     {
         int minutes = totalSeconds / 60;
@@ -85,14 +211,33 @@ else
         return $"{minutes:D2}:{seconds:D2}";
     }
 
-    private void ResetTimer()
-    {
-        ElapsedSeconds = 0;
-        TimerRunning = false;
-    }
+    public void Dispose() => timer?.Dispose();
+    #endregion
 
-    public void Dispose()
+    protected override async Task OnInitializedAsync()
     {
-        timer?.Dispose();
+        Exercise = await exerciseService.GetExerciseByIdAsync(ExerciseId);
+
+        timer = new System.Threading.Timer(async _ =>
+        {
+            var changed = false;
+
+            if (stopwatchRunning) { stopwatchElapsedSeconds++; changed = true; }
+
+            if (countdownRunning)
+            {
+                if (RemainingSeconds > 0) { countdownElapsedSeconds++; changed = true; }
+                if (RemainingSeconds == 0)
+                {
+                    countdownRunning = false;
+                    // Play sound
+                    changed = true;
+                }
+            }
+
+            if (changed)
+                await InvokeAsync(StateHasChanged);
+
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 }
