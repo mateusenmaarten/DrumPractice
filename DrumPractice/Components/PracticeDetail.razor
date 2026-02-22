@@ -11,26 +11,22 @@
 else
 {
     <!-- Image -->
-    <MudCardMedia Image="@Exercise.ImageUrl" Style="background-size: contain;" Height="200" Class="w-100 pt-5" />
+    <div style="margin-top:40px; margin-left:-16px; margin-right:-16px;">
+        <MudCardMedia Image="@Exercise.ImageUrl" Height="200"
+                      Style="background-size:cover; background-position:center; width:100%;" />
+    </div>
     <MudStack Spacing="2">
 
-        <!-- Hero Card: Title -->
         <MudCard Elevation="0">
-            <MudCardHeader>
-                <CardHeaderAvatar>
+            <MudCardContent>
+                <!-- Title -->  
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-2">
                     <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
                         <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" />
                     </MudAvatar>
-                </CardHeaderAvatar>
-                <CardHeaderContent>
                     <MudText Typo="Typo.h6">@Exercise.Name</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-        </MudCard>
-
-        <!-- BPM Card -->
-        <MudCard Elevation="2">
-            <MudCardContent>
+                </MudStack>
+                <!-- BPM -->
                 <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Class="mt-2">
 
                     <!-- Decrement -->
