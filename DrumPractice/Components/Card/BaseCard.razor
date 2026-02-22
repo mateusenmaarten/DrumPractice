@@ -15,7 +15,7 @@
             <MudList T="string">
                 @foreach (var item in Items ?? new List<CardItem>())
                 {
-                    <MudListItem Icon="@Icons.Material.Filled.ArrowRight" IconColor="Color.Primary" Text="@item.Name" Href="@item.Href"/>
+                    <MudListItem Icon="@Icons.Material.Filled.ArrowRight" IconColor="@Color" Text="@item.Name" Href="@item.Href"/>
                 }
             </MudList>
         </MudCardContent>
