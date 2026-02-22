@@ -13,35 +13,7 @@
             else{
                 @foreach (var item in Exercises)
                 {
-                    <MudItem xs="12" sm="6" md="3">
-                        <MudCard>
-                            <MudCardHeader>
-                                <CardHeaderAvatar>
-                                    <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
-                                        <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" Size="Size.Medium" />
-                                    </MudAvatar>
-                                </CardHeaderAvatar>
-                                <CardHeaderContent>
-                                    <MudText Typo="Typo.body1">@item.Name</MudText>
-                                </CardHeaderContent>
-                            </MudCardHeader>
-                            <MudCardMedia Image="@item.ImageUrl" Style="background-size: cover;" Height="150" />
-                            <MudCardContent>
-                            @if (item.Tags != null && item.Tags.Any())
-                            {
-                                @foreach (var tag in item.Tags)
-                                {
-                                    <MudChip T="string" Color="Color.Secondary">@tag.Name</MudChip>
-                                }
-                            }
-                            </MudCardContent>
-                            <MudCardActions>
-                            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.PlayForWork" Color="Color.Primary" Href="@($"/PracticeDetail/{item.Id}")">
-                                Practice now
-                            </MudButton>
-                            </MudCardActions>
-                        </MudCard>
-                    </MudItem>
+                    <OverviewExercise item="item" />
                 }
             }
     </MudGrid>
