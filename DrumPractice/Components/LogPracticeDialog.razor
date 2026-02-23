@@ -1,0 +1,76 @@
+﻿@using MudBlazor
+
+<MudDialog>
+    <DialogContent>
+        <MudStack Spacing="3">
+
+            <!-- Exercise name -->
+            <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                <MudAvatar Color="Color.Error" Variant="Variant.Outlined">
+                    <MudIcon Icon="@Icons.Material.Filled.MusicNote" Color="Color.Error" />
+                </MudAvatar>
+                <MudText Typo="Typo.h6">@ExerciseName</MudText>
+            </MudStack>
+
+            <MudDivider />
+
+            <!-- Stats -->
+            <MudStack Row="true" Justify="Justify.SpaceBetween">
+                <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                    <MudText Typo="Typo.overline" Color="Color.Secondary">BPM</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Error" Style="font-weight:800">@Bpm</MudText>
+                </MudStack>
+                <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                    <MudText Typo="Typo.overline" Color="Color.Secondary">Time</MudText>
+                    <MudText Typo="Typo.h5" Color="Color.Error" Style="font-weight:800">@FormatTime(Seconds)</MudText>
+                </MudStack>
+            </MudStack>
+
+            <MudDivider />
+
+            <!-- Rating -->
+            <MudStack AlignItems="AlignItems.Center" Spacing="1">
+                <MudText Typo="Typo.overline" Color="Color.Secondary">How did it go?</MudText>
+                <MudRating @bind-SelectedValue="Rating" MaxValue="5" Color="Color.Error" Size="Size.Large" />
+                <MudText Typo="Typo.caption" Color="Color.Secondary">@RatingLabel</MudText>
+            </MudStack>
+
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Color="Color.Default">Cancel</MudButton>
+        <MudButton OnClick="Confirm" Variant="Variant.Filled" Color="Color.Error"
+                   StartIcon="@Icons.Material.Filled.LibraryAdd">
+            Save
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter] public string ExerciseName { get; set; } = "";
+    [Parameter] public int Bpm { get; set; }
+    [Parameter] public int Seconds { get; set; }
+    [Parameter] public int Rating { get; set; } = 3;
+
+    private string RatingLabel => Rating switch
+    {
+        1 => "Rough session",
+        2 => "Needs work",
+        3 => "Getting there",
+        4 => "Solid practice",
+        5 => "Nailed it!",
+        _ => "Tap to rate"
+    };
+
+    private void Confirm() => MudDialog.Close(DialogResult.Ok(Rating));
+    private void Cancel() => MudDialog.Cancel();
+
+    private string FormatTime(int totalSeconds)
+    {
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return $"{minutes:D2}:{seconds:D2}";
+    }
+}

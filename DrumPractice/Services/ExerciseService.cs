@@ -29,4 +29,26 @@ public class ExerciseService
             .Include(e => e.Tags)
             .ToListAsync();
     }
+
+    public async Task<Exercise> AddExerciseAsync(Exercise exercise, ICollection<Tag> tags)
+    {
+        // Attach existing tags to avoid duplicate inserts
+        foreach (var tag in tags)
+        {
+            if (tag.Id > 0)
+                _dataContext.Tags.Attach(tag);
+            else
+                _dataContext.Tags.Add(tag);
+        }
+
+        exercise.Tags = tags;
+        _dataContext.Exercises.Add(exercise);
+        await _dataContext.SaveChangesAsync();
+        return exercise;
+    }
+
+    public async Task<List<Tag>> GetAllTagsAsync()
+    {
+        return await _dataContext.Tags.ToListAsync();
+    }
 }

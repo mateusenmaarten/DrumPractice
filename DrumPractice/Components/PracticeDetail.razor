@@ -4,6 +4,7 @@
 @implements IDisposable
 @inject ExerciseService exerciseService
 @inject PracticeLogService practiceLogService
+@inject IDialogService DialogService
 
 @if (Exercise == null)
 {
@@ -193,22 +194,37 @@ else
 
     #region Log
     private bool CanLog => stopwatchElapsedSeconds > 0 || countdownElapsedSeconds > 0;
+    private int practiceRating = 3;
 
     private async Task LogPracticeAsync()
     {
-        var log = new PracticeLog
+        var parameters = new DialogParameters
         {
-            ExerciseId = ExerciseId,
-            Date = DateTime.Now,
-            SecondsPracticed = (countdownElapsedSeconds > 0) ? countdownElapsedSeconds : stopwatchElapsedSeconds,
-            BpmUsed = bpm,
-            Rating = 3 // TODO -> add a rating system (1 - 5 stars?)
+            ["ExerciseName"] = Exercise!.Name,
+            ["Bpm"] = bpm,
+            ["Seconds"] = (countdownElapsedSeconds > 0) ? countdownElapsedSeconds : stopwatchElapsedSeconds,
+            ["Rating"] = practiceRating
         };
 
-        await practiceLogService.AddPracticeLogAsync(log);
-        // Reset timers after logging
-        ResetStopwatch();
-        ResetCountdown();
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.ExtraSmall, FullWidth = true };
+        var dialog = await DialogService.ShowAsync<LogPracticeDialog>("Log Practice", parameters, options);
+        var result = await dialog.Result;
+
+        if (result is { Canceled: false, Data: int rating })
+        {
+            var log = new PracticeLog
+            {
+                ExerciseId = ExerciseId,
+                Date = DateTime.Now,
+                SecondsPracticed = (countdownElapsedSeconds > 0) ? countdownElapsedSeconds : stopwatchElapsedSeconds,
+                BpmUsed = bpm,
+                Rating = rating
+            };
+
+            await practiceLogService.AddPracticeLogAsync(log);
+            ResetStopwatch();
+            ResetCountdown();
+        }
     }
     #endregion
 

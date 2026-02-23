@@ -1,0 +1,212 @@
+﻿@page "/add-exercise"
+@using DrumPractice.Models
+@using DrumPractice.Services
+@inject ExerciseService exerciseService
+@inject NavigationManager Navigation
+
+<MudText Typo="Typo.h5" Class="mb-4">Add Exercise</MudText>
+
+<MudForm @ref="form" @bind-IsValid="isValid">
+    <MudStack Spacing="3">
+
+        <!-- Name -->
+        <MudTextField @bind-Value="exercise.Name"
+                      Label="Exercise Name"
+                      Required="true"
+                      RequiredError="Name is required"
+                      Variant="Variant.Outlined" />
+
+        <!-- Description -->
+        <MudTextField @bind-Value="exercise.Description"
+                      Label="Description"
+                      Lines="3"
+                      Variant="Variant.Outlined" />
+
+        <!-- Image Upload -->
+        <MudCard Elevation="0" Outlined="true">
+            <MudCardContent>
+                <MudText Typo="Typo.overline" Color="Color.Secondary">Exercise Image</MudText>
+
+                <InputFile id="imageInput" OnChange="HandleImageUpload" accept="image/*" style="display:none" />
+
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mt-2">
+                    <MudButton HtmlTag="label"
+                               Variant="Variant.Outlined"
+                               Color="Color.Error"
+                               StartIcon="@Icons.Material.Filled.Upload"
+                               for="imageInput">
+                        Choose Image
+                    </MudButton>
+                    <MudText Typo="Typo.body2" Color="Color.Secondary">
+                        @(imageFileName ?? "No file chosen")
+                    </MudText>
+                </MudStack>
+
+                @if (imagePreviewUrl != null)
+                {
+                    <MudImage Src="@imagePreviewUrl"
+                              Alt="Preview"
+                              Height="160"
+                              ObjectFit="ObjectFit.Cover"
+                              Class="mt-3 rounded-lg"
+                              Style="width:100%" />
+                }
+            </MudCardContent>
+        </MudCard>
+
+        <!-- Tags -->
+        <MudCard Elevation="0" Outlined="true">
+            <MudCardContent>
+                <MudText Typo="Typo.overline" Color="Color.Secondary" GutterBottom="true">Tags</MudText>
+
+                <!-- Existing tags -->
+                <MudChipSet T="Tag" MultiSelection="true" @bind-SelectedValues="selectedTags">
+                    @foreach (var tag in availableTags)
+                    {
+                        <MudChip T="Tag" Value="tag"
+                                 Color="Color.Error"
+                                 Variant="Variant.Outlined">
+                            @tag.Name
+                        </MudChip>
+                    }
+                </MudChipSet>
+
+                <!-- Add new tag -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mt-3">
+                    <MudTextField @bind-Value="newTagName"
+                                  Label="New Tag"
+                                  Variant="Variant.Outlined"
+                                  Margin="Margin.Dense"
+                                  Style="flex:1" />
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="AddNewTag"
+                               Disabled="@(string.IsNullOrWhiteSpace(newTagName))">
+                        Add
+                    </MudButton>
+                </MudStack>
+
+                <!-- Newly created tags (not yet in db) -->
+                @if (newTags.Any())
+                {
+                    <MudStack Row="true" Wrap="Wrap.Wrap" Class="mt-2">
+                        @foreach (var tag in newTags)
+                        {
+                            <MudChip T="Tag"
+                                     Color="Color.Success"
+                                     Variant="Variant.Filled"
+                                     OnClose="() => RemoveNewTag(tag)">
+                                @tag.Name
+                            </MudChip>
+                        }
+                    </MudStack>
+                }
+            </MudCardContent>
+        </MudCard>
+
+        <!-- Submit -->
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Error"
+                   Size="Size.Large"
+                   FullWidth="true"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Disabled="@(!isValid || isSaving)"
+                   OnClick="Submit">
+            @(isSaving ? "Saving..." : "Save Exercise")
+        </MudButton>
+
+        @if (errorMessage != null)
+        {
+            <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+        }
+
+    </MudStack>
+</MudForm>
+
+@code {
+    private MudForm form = null!;
+    private bool isValid;
+    private bool isSaving;
+    private string? errorMessage;
+
+    private Exercise exercise = new() { Name = string.Empty };
+
+    // Image
+    private string? imageFileName;
+    private string? imagePreviewUrl;
+    private IBrowserFile? selectedFile;
+
+    // Tags
+    private List<Tag> availableTags = new();
+    private IReadOnlyCollection<Tag> selectedTags = new List<Tag>();
+    private List<Tag> newTags = new();
+    private string? newTagName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        availableTags = await exerciseService.GetAllTagsAsync();
+    }
+
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+        imageFileName = selectedFile.Name;
+
+        // Show preview
+        var buffer = new byte[selectedFile.Size];
+        await selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).ReadAsync(buffer);
+        var base64 = Convert.ToBase64String(buffer);
+        imagePreviewUrl = $"data:{selectedFile.ContentType};base64,{base64}";
+    }
+
+    private void AddNewTag()
+    {
+        if (string.IsNullOrWhiteSpace(newTagName)) return;
+
+        newTags.Add(new Tag { Name = newTagName.Trim() });
+        newTagName = null;
+    }
+
+    private void RemoveNewTag(Tag tag) => newTags.Remove(tag);
+
+    private async Task Submit()
+    {
+        await form.Validate();
+        if (!isValid) return;
+
+        isSaving = true;
+        errorMessage = null;
+
+        try
+        {
+            // Save image
+            if (selectedFile != null)
+            {
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(selectedFile.Name)}";
+                var imagesFolder = Path.Combine(FileSystem.AppDataDirectory, "images");
+                Directory.CreateDirectory(imagesFolder);
+                var filePath = Path.Combine(imagesFolder, fileName);
+
+                await using var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+                await using var fileStream = File.Create(filePath);
+                await stream.CopyToAsync(fileStream);
+
+                exercise.ImageUrl = $"images/{fileName}";
+            }
+
+            // Combine selected existing tags + newly created tags
+            var allTags = selectedTags.Concat(newTags).ToList();
+            await exerciseService.AddExerciseAsync(exercise, allTags);
+
+            Navigation.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Something went wrong: {ex.Message}";
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+}
